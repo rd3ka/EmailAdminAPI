@@ -1,11 +1,12 @@
 package emailapp;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
-class Email
-{
+
+class Email {
 	Employee emp;
 
 	/* Use generated fields */
@@ -13,15 +14,15 @@ class Email
 	private char gender;
 	private LocalDate dateOfBirth;
 	private int targetLength = 8;
-	
+
 	public Email(char gender, String dob, Employee emp) {
 		String[] dateOfBirthAr = dob.split("\\.");
 		dob = new String();
-		
+
 		/* Reversing Date Of Birth to Parse into ISO Standard LocalDate */
-		for(int i = dateOfBirthAr.length - 1; i >= 0; i--)
+		for (int i = dateOfBirthAr.length - 1; i >= 0; i--)
 			dob += "-" + dateOfBirthAr[i];
-		
+
 		dob = new StringBuilder(dob).deleteCharAt(0).toString();
 
 		this.dateOfBirth = LocalDate.parse(dob);
@@ -29,7 +30,7 @@ class Email
 		this.emp = emp;
 	}
 
-	public String getPassword(String...args) {
+	public String getPassword(String... args) {
 		if (this.password == null)
 			setPassword();
 		return this.password;
@@ -48,9 +49,9 @@ class Email
 		int upperLimit = 'z';
 		Random rand = new Random();
 		this.password = rand.ints(lowerLimit, upperLimit + 1)
-							.limit(this.targetLength)
-							.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-							.toString();
+				.limit(this.targetLength)
+				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+				.toString();
 	}
 
 	public void changePassword() {
@@ -60,25 +61,25 @@ class Email
 
 	public String getEmailAddress() {
 		return this.emailAddress;
-		
+
 	}
 
 	public void setEmailAddress(int index, String... args) {
-		Function <List <String> ,String> init = word -> word.stream()
-															.map(e -> e.charAt(0))
-															.collect(StringBuilder::new,
-																	 StringBuilder::appendCodePoint,
-																	 StringBuilder::append)
-															.toString();
+		Function<List<String>, String> init = word -> word.stream()
+				.map(e -> e.charAt(0))
+				.collect(StringBuilder::new,
+						StringBuilder::appendCodePoint,
+						StringBuilder::append)
+				.toString();
 		String prefix = emp.getFirstName().toLowerCase();
 		String postfix = emp.getDepartment().toLowerCase();
-		this.emailAddress = prefix 
-							+ '.'
-							+ init.apply(Arrays.asList(postfix.split(" ")))
-							+ "@"
-							+ init.apply(Arrays.asList(args[index].toLowerCase().split(" ")))
-							+ "."
-							+ "com";
+		this.emailAddress = prefix
+				+ '.'
+				+ init.apply(Arrays.asList(postfix.split(" ")))
+				+ "@"
+				+ init.apply(Arrays.asList(args[index].toLowerCase().split(" ")))
+				+ "."
+				+ "com";
 	}
 
 	public int getEmpHash() {
@@ -87,5 +88,5 @@ class Email
 
 	public void setEmp(Employee emp) {
 		this.emp = emp;
-	}		
+	}
 }
