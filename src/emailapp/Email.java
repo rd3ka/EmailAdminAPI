@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import passwordGenerator.passGen;
+import userType.Employee;
 
 class Email {
 	Employee emp;
@@ -13,7 +14,7 @@ class Email {
 	private String password, emailAddress;
 	private char gender;
 	private LocalDate dateOfBirth;
-	private int targetLength = 8;
+	//private int targetLength = 8;
 
 	public Email(char gender, String dob, Employee emp) {
 		String[] dateOfBirthArray = dob.split("\\.");
