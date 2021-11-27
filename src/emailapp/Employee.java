@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Employee {
 
-    private String firstName,lastName,department;
-    private int tenure,salary;
+    private String firstName, lastName, department;
+    private int tenure, salary;
     private long identificationNum;
 
     public Employee(String firstName, String lastName, String department, int tenure) {
@@ -67,10 +67,10 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("%s %s %d %d %d",this.firstName,
-                                              this.lastName,
-                                              this.salary,
-                                              this.identificationNum,
-                                              this.tenure); 
-    }    
+        return String.format("%s %s %d %d %d", this.firstName,
+                this.lastName,
+                this.salary,
+                this.identificationNum,
+                this.tenure);
+    }
 }

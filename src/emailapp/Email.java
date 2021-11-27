@@ -3,8 +3,8 @@ package emailapp;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Function;
+import passwordGenerator.passGen;
 
 class Email {
 	Employee emp;
@@ -16,12 +16,12 @@ class Email {
 	private int targetLength = 8;
 
 	public Email(char gender, String dob, Employee emp) {
-		String[] dateOfBirthAr = dob.split("\\.");
+		String[] dateOfBirthArray = dob.split("\\.");
 		dob = new String();
 
-		/* Reversing Date Of Birth to Parse into ISO Standard LocalDate */
-		for (int i = dateOfBirthAr.length - 1; i >= 0; i--)
-			dob += "-" + dateOfBirthAr[i];
+		/* Converting date standard ISO LocalDate format to-be parsed */
+		for (int i = dateOfBirthArray.length - 1; i >= 0; i--)
+			dob += "-".concat(dateOfBirthArray[i]);
 
 		dob = new StringBuilder(dob).deleteCharAt(0).toString();
 
@@ -30,6 +30,7 @@ class Email {
 		this.emp = emp;
 	}
 
+	/* to-do */
 	public String getPassword(String... args) {
 		if (this.password == null)
 			setPassword();
@@ -45,13 +46,8 @@ class Email {
 	}
 
 	public void setPassword() {
-		int lowerLimit = 'a';
-		int upperLimit = 'z';
-		Random rand = new Random();
-		this.password = rand.ints(lowerLimit, upperLimit + 1)
-				.limit(this.targetLength)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString();
+		passGen pwdGenerate = new passGen();
+		this.password = pwdGenerate.generateRandomSecurePassword();
 	}
 
 	public void changePassword() {
