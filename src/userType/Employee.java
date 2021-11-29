@@ -16,17 +16,18 @@ public class Employee extends User implements cmdMapToDesc {
 
 	public Employee(String firstName,
 			String lastName,
-			String address,
-			String nationality,
 			String dateOfBirth) {
 
-		super(firstName, lastName, address, nationality, dateOfBirth);
-		this.employeeUpperLimit = 120000;
-		this.employeeLowerLimit = 130000;
+		super(firstName, lastName, dateOfBirth);
+		this.employeeUpperLimit = 130000;
+		this.employeeLowerLimit = 120000;
 
-		if (System.console().printf("Do you want to provide base salary of your position? y/N\n")
+		if (System.console().printf("Do you want to provide base salary of your position? y/N : ")
 				.readLine()
 				.equalsIgnoreCase("y")) {
+
+			/* Department is a dependency! */
+			setDepartment();
 
 			this.baseToPosition = new AbstractMap.SimpleEntry<>(
 					System.console().printf("Enter position : ").readLine(),
@@ -34,7 +35,7 @@ public class Employee extends User implements cmdMapToDesc {
 
 		}
 
-		if (System.console().printf("Do you want to change/add/provide additional details? y/N")
+		if (System.console().printf("Do you want to change/add/provide additional details? y/N : ")
 				.readLine()
 				.equalsIgnoreCase("y")) {
 
@@ -42,7 +43,7 @@ public class Employee extends User implements cmdMapToDesc {
 
 			do {
 				cmdMap.get(System.console().printf("Enter Choice : ").readLine()).run();
-			} while (System.console().printf("Do you wish to continue? y/N")
+			} while (System.console().printf("Do you wish to continue? y/N : ")
 					.readLine()
 					.equalsIgnoreCase("y"));
 		}
@@ -63,7 +64,7 @@ public class Employee extends User implements cmdMapToDesc {
 	public void setEmployeeUpperLimit(long... employeeUpperLimit) {
 		if (employeeUpperLimit.length == 0)
 			this.employeeUpperLimit = Long.parseLong(System.console()
-					.printf("Enter unique ID upper limit").readLine());
+					.printf("Enter unique ID upper limit : ").readLine());
 		else
 			this.employeeUpperLimit = employeeUpperLimit[0];
 	}
@@ -75,7 +76,7 @@ public class Employee extends User implements cmdMapToDesc {
 	public void setEmployeeLowerLimit(long... employeeLowerLimit) {
 		if (employeeLowerLimit.length == 0)
 			this.employeeLowerLimit = Long.parseLong(System.console()
-					.printf("Enter uniquee ID lower limit").readLine());
+					.printf("Enter uniquee ID lower limit : ").readLine());
 		else
 			this.employeeLowerLimit = employeeLowerLimit[0];
 	}
@@ -86,7 +87,7 @@ public class Employee extends User implements cmdMapToDesc {
 
 	public void setDepartment(String... department) {
 		if (department.length == 0)
-			this.department = System.console().printf("What is your department of work?")
+			this.department = System.console().printf("What is your department of work? : ")
 					.readLine();
 		else
 			this.department = department[0];
@@ -99,7 +100,7 @@ public class Employee extends User implements cmdMapToDesc {
 	public void settenure(int... tenure) {
 		if (tenure.length == 0)
 			this.tenure = Integer.parseInt(System.console()
-					.printf("Enter the number of years in the organization")
+					.printf("Enter the number of years in the organization : ")
 					.readLine());
 		else
 			this.tenure = tenure[0];
@@ -120,11 +121,11 @@ public class Employee extends User implements cmdMapToDesc {
 		return identificationNum;
 	}
 
-	public void setIdentificationNum() throws InterruptedException {
+	public void setIdentificationNum() {
 		SecureRandom random = new SecureRandom();
 		this.identificationNum = random.nextLong(this.employeeUpperLimit - this.employeeLowerLimit)
 				+ this.employeeLowerLimit;
-		System.console().printf("New Identification Set!").wait(4);
+		System.console().printf("New Identification Set!\n");
 	}
 
 	@Override
@@ -138,19 +139,13 @@ public class Employee extends User implements cmdMapToDesc {
 
 	@Override
 	public void FunctionMapping() {
-		cmdMap.put(commandToDescription.apply("sD", "sD -> Set Department"), () -> setDepartment());
-		cmdMap.put(commandToDescription.apply("sEUL", "sEUL -> Change Unique ID Upper Limit"),
+		cmdMap.put(commandToDescription.apply("sD", "\tsD -> \tSet Department\n"), () -> setDepartment());
+		cmdMap.put(commandToDescription.apply("sEUL", "\tsEUL -> Change Unique ID Upper Limit\n"),
 				() -> setEmployeeUpperLimit());
-		cmdMap.put(commandToDescription.apply("sELL", "sELL -> Change Unique ID Lower Limit"),
+		cmdMap.put(commandToDescription.apply("sELL", "\tsELL -> Change Unique ID Lower Limit\n"),
 				() -> setEmployeeLowerLimit());
-		cmdMap.put(commandToDescription.apply("sP", "sP -> Change Position"), () -> setPosition());
-		cmdMap.put(commandToDescription.apply("sT", "sT -> Set Tenure"), () -> settenure());
-		cmdMap.put(commandToDescription.apply("sID", "sID -> Change/Set UniqueID"), () -> {
-			try {
-				setIdentificationNum();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		});
+		cmdMap.put(commandToDescription.apply("sP", "\tsP -> \tChange Position\n"), () -> setPosition());
+		cmdMap.put(commandToDescription.apply("sT", "\tsT -> \tSet Tenure\n"), () -> settenure());
+		cmdMap.put(commandToDescription.apply("sID", "\tsID -> \tChange/Set UniqueID\n"), () -> setIdentificationNum());
 	}
 }

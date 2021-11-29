@@ -14,7 +14,7 @@ class Email {
 	private String password, emailAddress;
 	private char gender;
 	private LocalDate dateOfBirth;
-	//private int targetLength = 8;
+	// private int targetLength = 8;
 
 	public Email(char gender, String dob, Employee emp) {
 		String[] dateOfBirthArray = dob.split("\\.");

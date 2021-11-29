@@ -4,11 +4,7 @@ import userType.Employee;
 
 public class EmailApp {
 	public static void main(String[] args) {
-		Employee emp = new Employee("Raktim", "Deka",
-				"22,L.N Road, Dumdum Cantonment",
-				"Indian",
-				"14.09.1999");
-
+		Employee emp = new Employee("Raktim", "Deka","14.09.1999");
 		Email email = new Email('M', "14.09.1999", emp);
 		System.out.println(emp.getIdentificationNum());
 		System.out.println(email.getPassword());

@@ -10,12 +10,10 @@ public class Student extends User implements cmdMapToDesc {
 
     public Student(String firstName,
             String lastName,
-            String address,
-            String nationality,
             String dateOfBirth,
             String institutionName, boolean CollgeFresher, int rollNumber, char section) {
 
-        super(firstName, lastName, address, nationality, dateOfBirth);
+        super(firstName, lastName, dateOfBirth);
 
         this.institutionName = institutionName;
         this.CollgeFresher = CollgeFresher;

@@ -1,26 +1,31 @@
 package userType;
 
 import java.time.LocalDate;
+
 public class User {
 
     private String firstName,
-                   lastName,
-                   address,
-                   nationality;
-    
+            lastName,
+            address,
+            nationality;
+
     private LocalDate dateOfBirth;
 
     public User(String firstName,
             String lastName,
-            String address,
-            String nationality,
             String dateOfBirth) {
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.nationality = nationality;
         this.dateOfBirth = parseToLocalDate(dateOfBirth);
+
+        if (System.console().printf("Would you like to provide additional info? y/N : ")
+                .readLine()
+                .equalsIgnoreCase("y")) {
+            
+            this.address = System.console().printf("Enter address : ").readLine();
+            this.nationality = System.console().printf("Enter nationality : ").readLine();
+        }
     }
 
     public String getFirstName() {
@@ -66,7 +71,7 @@ public class User {
     public LocalDate parseToLocalDate(String str) {
         String strl[] = str.split("\\.");
         str = new String();
-        for(int i = strl.length - 1; i >= 0; i--) 
+        for (int i = strl.length - 1; i >= 0; i--)
             str += "-".concat(strl[i]);
         str = new StringBuilder(str).deleteCharAt(0).toString();
         return LocalDate.parse(str);
