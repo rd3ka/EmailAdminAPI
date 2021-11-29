@@ -14,13 +14,13 @@ public class User {
             String lastName,
             String address,
             String nationality,
-            LocalDate dateOfBirth) {
+            String dateOfBirth) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.nationality = nationality;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = parseToLocalDate(dateOfBirth);
     }
 
     public String getFirstName() {
@@ -63,4 +63,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public LocalDate parseToLocalDate(String str) {
+        String strl[] = str.split("\\.");
+        str = new String();
+        for(int i = strl.length - 1; i >= 0; i--) 
+            str += "-".concat(strl[i]);
+        str = new StringBuilder(str).deleteCharAt(0).toString();
+        return LocalDate.parse(str);
+    }
 }

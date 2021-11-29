@@ -1,11 +1,6 @@
 package userType;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiFunction;
-
-public class Student extends User {
+public class Student extends User implements cmdMapToDesc {
     private String institutionName, department;
     private boolean CollgeFresher;
     private double X, XII;
@@ -17,7 +12,7 @@ public class Student extends User {
             String lastName,
             String address,
             String nationality,
-            LocalDate dateOfBirth,
+            String dateOfBirth,
             String institutionName, boolean CollgeFresher, int rollNumber, char section) {
 
         super(firstName, lastName, address, nationality, dateOfBirth);
@@ -27,29 +22,17 @@ public class Student extends User {
         this.rollNumber = rollNumber;
         this.section = section;
 
-        /* ToDo! - Selection Menu Looping */
-        String ret = System.console()
-                .printf("Do you want to provide additional Information? y/n \n")
-                .readLine();
+        if (System.console().printf("Do you want to provide additional info, y/N?")
+                .readLine()
+                .equalsIgnoreCase("y")) {
 
-        if (ret.equals("y")) {
-
-            /* BiFunction to map command with Description for better input */
-            BiFunction<String, String, String> commandToDescription = (cmd, des) -> cmd;
-            /* Mapping Strings with Runnable calls */
-            Map<String, Runnable> parentMap = new HashMap<>();
-
-            parentMap.put(commandToDescription.apply("sD", "sD -> Set Description"), () -> setDepartment());
-            parentMap.put(commandToDescription.apply("sX", "sX -> set 10 Marks"), () -> setX());
-            parentMap.put(commandToDescription.apply("sXII", "sXII -> set 12 Marks"), () -> setXII());
-            parentMap.put(commandToDescription.apply("rN", "rN -> set RollNumber"), () -> setRollNumber());
-            parentMap.put(commandToDescription.apply("cN", "cN -> set Course Name"), () -> setCourseName());
-            parentMap.put(commandToDescription.apply("iN", "iN -> set Institution Name"), () -> setInstitutionName());
-            parentMap.put(commandToDescription.apply("sec", "sec-> set Section Name"), () -> setSection());
-
-            /* Calling the specific function to set/modify changes */
-            parentMap.get(System.console().printf("Type your choice : ").readLine()).run();
-
+            FunctionMapping();
+            
+            do {
+                cmdMap.get(System.console().printf("Enter choice : ").readLine()).run();
+            } while (System.console().printf("Do you want to continue? y/N")
+                    .readLine()
+                    .equalsIgnoreCase("y"));
         }
 
     }
@@ -110,5 +93,16 @@ public class Student extends User {
 
     public void setSection() {
         this.section = System.console().readLine().charAt(0);
+    }
+
+    @Override
+    public void FunctionMapping() {
+        cmdMap.put(commandToDescription.apply("sD", "sD -> Set Description"), () -> setDepartment());
+        cmdMap.put(commandToDescription.apply("sX", "sX -> set 10 Marks"), () -> setX());
+        cmdMap.put(commandToDescription.apply("sXII", "sXII -> set 12 Marks"), () -> setXII());
+        cmdMap.put(commandToDescription.apply("rN", "rN -> set RollNumber"), () -> setRollNumber());
+        cmdMap.put(commandToDescription.apply("cN", "cN -> set Course Name"), () -> setCourseName());
+        cmdMap.put(commandToDescription.apply("iN", "iN -> set Institution Name"), () -> setInstitutionName());
+        cmdMap.put(commandToDescription.apply("sec", "sec-> set Section Name"), () -> setSection());
     }
 }
