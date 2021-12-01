@@ -20,7 +20,7 @@ public class Student extends User implements cmdMapToDesc {
         this.rollNumber = rollNumber;
         this.section = section;
 
-        if (System.console().printf("Do you want to provide additional info, y/N?")
+        if (System.console().printf("Do you want to provide additional info, y/N? : ")
                 .readLine()
                 .equalsIgnoreCase("y")) {
 
@@ -28,7 +28,7 @@ public class Student extends User implements cmdMapToDesc {
             
             do {
                 cmdMap.get(System.console().printf("Enter choice : ").readLine()).run();
-            } while (System.console().printf("Do you want to continue? y/N")
+            } while (System.console().printf("Do you want to continue? y/N : ")
                     .readLine()
                     .equalsIgnoreCase("y"));
         }
@@ -95,12 +95,12 @@ public class Student extends User implements cmdMapToDesc {
 
     @Override
     public void FunctionMapping() {
-        cmdMap.put(commandToDescription.apply("sD", "sD -> Set Description"), () -> setDepartment());
-        cmdMap.put(commandToDescription.apply("sX", "sX -> set 10 Marks"), () -> setX());
-        cmdMap.put(commandToDescription.apply("sXII", "sXII -> set 12 Marks"), () -> setXII());
-        cmdMap.put(commandToDescription.apply("rN", "rN -> set RollNumber"), () -> setRollNumber());
-        cmdMap.put(commandToDescription.apply("cN", "cN -> set Course Name"), () -> setCourseName());
-        cmdMap.put(commandToDescription.apply("iN", "iN -> set Institution Name"), () -> setInstitutionName());
-        cmdMap.put(commandToDescription.apply("sec", "sec-> set Section Name"), () -> setSection());
+        cmdMap.put(commandToDescription.apply("sD", "\tsD -> Set Description"), () -> setDepartment());
+        cmdMap.put(commandToDescription.apply("sX", "\tsX -> set 10 Marks"), () -> setX());
+        cmdMap.put(commandToDescription.apply("sXII", "\tsXII -> set 12 Marks"), () -> setXII());
+        cmdMap.put(commandToDescription.apply("rN", "\trN -> set RollNumber"), () -> setRollNumber());
+        cmdMap.put(commandToDescription.apply("cN", "\tcN -> set Course Name"), () -> setCourseName());
+        cmdMap.put(commandToDescription.apply("iN", "\tiN -> set Institution Name"), () -> setInstitutionName());
+        cmdMap.put(commandToDescription.apply("sec", "\tsec-> set Section Name"), () -> setSection());
     }
 }

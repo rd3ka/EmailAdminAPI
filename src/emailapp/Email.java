@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import passwordGenerator.passGen;
+import passwordGenerator.*;
 import userType.Employee;
 
 class Email {
@@ -14,19 +14,9 @@ class Email {
 	private String password, emailAddress;
 	private char gender;
 	private LocalDate dateOfBirth;
-	// private int targetLength = 8;
 
 	public Email(char gender, String dob, Employee emp) {
-		String[] dateOfBirthArray = dob.split("\\.");
-		dob = new String();
-
-		/* Converting date standard ISO LocalDate format to-be parsed */
-		for (int i = dateOfBirthArray.length - 1; i >= 0; i--)
-			dob += "-".concat(dateOfBirthArray[i]);
-
-		dob = new StringBuilder(dob).deleteCharAt(0).toString();
-
-		this.dateOfBirth = LocalDate.parse(dob);
+		this.dateOfBirth = parseToLocalDate(dob);
 		this.gender = gender;
 		this.emp = emp;
 	}
@@ -85,5 +75,14 @@ class Email {
 
 	public void setEmp(Employee emp) {
 		this.emp = emp;
+	}
+
+	private LocalDate parseToLocalDate(String date) {
+		String[] dateArray = date.split("\\.");
+		date = new String();
+		for(int i = dateArray.length - 1; i >= 0; i--)
+			date += "-".concat(dateArray[i]);
+		date = new StringBuilder(date).deleteCharAt(0).toString();
+		return LocalDate.parse(date);
 	}
 }
