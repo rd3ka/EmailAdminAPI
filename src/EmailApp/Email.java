@@ -10,18 +10,16 @@ import UserType.Employee;
 class Email {
 	Employee emp;
 
-	/* Use generated fields */
 	private String password, emailAddress;
 	private char gender;
 	private LocalDate dateOfBirth;
-
+	
 	public Email(char gender, String dob, Employee emp) {
 		this.dateOfBirth = parseToLocalDate(dob);
 		this.gender = gender;
 		this.emp = emp;
 	}
 
-	/* to-do */
 	public String getPassword(String... args) {
 		if (this.password == null)
 			setPassword();
@@ -52,6 +50,7 @@ class Email {
 	}
 
 	public void setEmailAddress(int index, String... args) {
+		/* A Functional Interface to Get Initials of any Sentence or Word */
 		Function<List<String>, String> init = word -> word.stream()
 				.map(e -> e.charAt(0))
 				.collect(StringBuilder::new,
@@ -78,11 +77,16 @@ class Email {
 	}
 
 	private LocalDate parseToLocalDate(String date) {
+		/* Splitting String using the '.' delimiter */
 		String[] dateArray = date.split("\\.");
 		date = new String();
+
+		/* Converting the date is Standard ISO LocalDate format */
 		for(int i = dateArray.length - 1; i >= 0; i--)
 			date += "-".concat(dateArray[i]);
+	
 		date = new StringBuilder(date).deleteCharAt(0).toString();
+		
 		return LocalDate.parse(date);
 	}
 }
