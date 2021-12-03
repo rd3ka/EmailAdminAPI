@@ -81,7 +81,7 @@ class Email {
 		String[] dateArray = date.split("\\.");
 		date = new String();
 
-		/* Converting the date is Standard ISO LocalDate format */
+		/* Converting the date into Standard ISO LocalDate format */
 		for(int i = dateArray.length - 1; i >= 0; i--)
 			date += "-".concat(dateArray[i]);
 	
