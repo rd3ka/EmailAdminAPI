@@ -13,7 +13,7 @@ class Email {
 	private String password, emailAddress;
 	private char gender;
 	private LocalDate dateOfBirth;
-	
+
 	public Email(char gender, String dob, Employee emp) {
 		this.dateOfBirth = parseToLocalDate(dob);
 		this.gender = gender;
@@ -52,20 +52,20 @@ class Email {
 	public void setEmailAddress(int index, String... args) {
 		/* A Functional Interface to Get Initials of any Sentence or Word */
 		Function<List<String>, String> init = word -> word.stream()
-				.map(e -> e.charAt(0))
-				.collect(StringBuilder::new,
-						StringBuilder::appendCodePoint,
-						StringBuilder::append)
-				.toString();
+		                                      .map(e -> e.charAt(0))
+		                                      .collect(StringBuilder::new,
+		                                              StringBuilder::appendCodePoint,
+		                                              StringBuilder::append)
+		                                      .toString();
 		String prefix = emp.getFirstName().toLowerCase();
 		String postfix = emp.getDepartment().toLowerCase();
 		this.emailAddress = prefix
-				+ '.'
-				+ init.apply(Arrays.asList(postfix.split(" ")))
-				+ "@"
-				+ init.apply(Arrays.asList(args[index].toLowerCase().split(" ")))
-				+ "."
-				+ "com";
+		                    + '.'
+		                    + init.apply(Arrays.asList(postfix.split(" ")))
+		                    + "@"
+		                    + init.apply(Arrays.asList(args[index].toLowerCase().split(" ")))
+		                    + "."
+		                    + "com";
 	}
 
 	public int getEmpHash() {
@@ -82,11 +82,11 @@ class Email {
 		date = new String();
 
 		/* Converting the date into Standard ISO LocalDate format */
-		for(int i = dateArray.length - 1; i >= 0; i--)
+		for (int i = dateArray.length - 1; i >= 0; i--)
 			date += "-".concat(dateArray[i]);
-	
+
 		date = new StringBuilder(date).deleteCharAt(0).toString();
-		
+		/* parsing in LocalDate */
 		return LocalDate.parse(date);
 	}
 }
