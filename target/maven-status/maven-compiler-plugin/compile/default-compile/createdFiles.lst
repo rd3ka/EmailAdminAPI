@@ -1,0 +1,9 @@
+com/admin/users/educational/School.class
+com/admin/App.class
+com/admin/users/educational/Educational.class
+com/admin/users/Enterprise.class
+com/admin/users/educational/PostSchool.class
+com/admin/email/Email.class
+com/admin/email/EnterpriseEmail.class
+com/admin/users/Users.class
+com/admin/password/Password.class
