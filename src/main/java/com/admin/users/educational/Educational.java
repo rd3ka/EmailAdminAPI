@@ -28,6 +28,7 @@ public class Educational extends Users {
         this.Gender = Gender;
         this.Height = Height;
         this.Weight = Weight;
+        this.InstituteName = InstituteName;
     }
 
     public Double getHeight() {
