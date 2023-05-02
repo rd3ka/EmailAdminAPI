@@ -5,48 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0944a097-fd70-4990-8a40-3a62f526a5fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/email/Email.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/email/EnterpriseEmail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/password/Password.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/users/Enterprise.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/users/Users.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/users/educational/Educational.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/users/educational/PostSchool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/admin/users/educational/School.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/admin/AppTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/email/Email.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/email/EnterpriseEmail.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/password/Password.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/users/Enterprise.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/users/Users.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/users/educational/Educational.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/users/educational/PostSchool.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/admin/users/educational/School.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmailAdministration.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DateValidator/DateValidator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DateValidator/DateValidatorUsingLocalDate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailApp/Email.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EmailApp/EmailApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PasswordGenerator/passGen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserType/Employee.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserType/Student.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserType/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserType/cmdMapToDesc.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -79,16 +42,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/rdeka/Documents/Yet-Another-Email-Admin-System",
-    "settings.editor.selected.configurable": "configurable.group.appearance"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/rdeka/Documents/Yet-Another-Email-Admin-System&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean" />
