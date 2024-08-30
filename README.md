@@ -1,6 +1,5 @@
 ## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is the reimplementation of YetAnotherEmailAdminAPI which makes sense, with added database features and encryption to handle passwords
 
 ## Folder Structure
 
