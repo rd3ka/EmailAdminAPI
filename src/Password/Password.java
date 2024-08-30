@@ -2,6 +2,8 @@ package Password;
 
 import java.security.SecureRandom;
 
+import javax.crypto.SecretKey;
+
 public class Password {
     /* ----- x ------ */
     private final int LOW = 0;
@@ -42,9 +44,12 @@ public class Password {
         if (lvl == MED || lvl == HIGH) {
             this.password = password;
             System.out.println("Password Changed Successfully!");
-        }
-        else 
+        } else
             System.out.println("Password too weak!");
+    }
+
+    public final String getPassword() {
+        return this.password;
     }
 
     private final char passwordGenerationHelper(int choice) {
@@ -61,9 +66,18 @@ public class Password {
         return character;
     }
 
+    public final String getEncryptedPassword() {
+        return new EncryptionUtil(this.password).getEncryptedPassword();
+    }
+
+    public final String getDecryptedPassword() {
+        return new EncryptionUtil(this.password).getDecryptedPassword();
+    }
+
     private final String GeneratePassword() {
 
-        /* The first step is to set the password length
+        /*
+         * The first step is to set the password length
          * by default, the password length can be any value
          * between 6 and 12
          * 
@@ -73,36 +87,41 @@ public class Password {
         this.setLength();
 
         /* character array to build up the characters to become a password */
-        char[] pass = new char[ this.length ];
+        char[] pass = new char[this.length];
 
-        /* Conventionally, by default, the first letter of the password
+        /*
+         * Conventionally, by default, the first letter of the password
          * can be a lowercase, uppercase, numberic letter but NEVER a symbol
          */
-        pass[0] = passwordGenerationHelper(secureRand.nextInt(1,4));
+        pass[0] = passwordGenerationHelper(secureRand.nextInt(1, 4));
 
-        /* then, we can proceed to fill up the rest of the characters, which can
+        /*
+         * then, we can proceed to fill up the rest of the characters, which can
          * be a mix of uppercase, lowercase and apha numeric characters
          */
-        for(int i = 1; i < this.length; ++i) 
-            pass[i] = passwordGenerationHelper(secureRand.nextInt(1,5));
+        for (int i = 1; i < this.length; ++i)
+            pass[i] = passwordGenerationHelper(secureRand.nextInt(1, 5));
 
         return new String(pass);
     }
-        /* 
-         * checks the strength of the password, internally
-         * if the password is low, the password cannot be set by the user
-         * else if the password is med or high, the password will get set
-         * 
-         * TO-DO: Needs logic imporvement!
-         */
-        private final int checkStrength(String password) {
-            long nc = password.chars().filter( c -> c >= 48  && c <= 57).count();
-            long sc = password.chars().filter( c -> c >= 65 && c <= 90).count();
-            long cc = password.chars().filter( c -> c >= 97 && c <= 122).count();
 
-            if (nc <= 2 && cc <= 1 && sc <= 4) return LOW;
-            else if (nc <= 3 && cc <= 2 && sc < 6) return MED;
-            else 
-                return HIGH;
-        }
+    /*
+     * checks the strength of the password, internally
+     * if the password is low, the password cannot be set by the user
+     * else if the password is med or high, the password will get set
+     * 
+     * TO-DO: Needs logic imporvement!
+     */
+    private final int checkStrength(String password) {
+        long nc = password.chars().filter(c -> c >= 48 && c <= 57).count();
+        long sc = password.chars().filter(c -> c >= 65 && c <= 90).count();
+        long cc = password.chars().filter(c -> c >= 97 && c <= 122).count();
+
+        if (nc <= 2 && cc <= 1 && sc <= 4)
+            return LOW;
+        else if (nc <= 3 && cc <= 2 && sc < 6)
+            return MED;
+        else
+            return HIGH;
+    }
 }
