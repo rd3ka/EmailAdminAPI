@@ -2,7 +2,6 @@ package Password;
 
 import java.security.SecureRandom;
 
-import javax.crypto.SecretKey;
 
 public class Password {
     /* ----- x ------ */
@@ -40,8 +39,8 @@ public class Password {
     }
 
     public void setPassword(String password) {
-        int lvl = checkStrength(password);
-        if (lvl == MED || lvl == HIGH) {
+        int level = checkStrength(password);
+        if (level == MED || level == HIGH) {
             this.password = password;
             System.out.println("Password Changed Successfully!");
         } else
