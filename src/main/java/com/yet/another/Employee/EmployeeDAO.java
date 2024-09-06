@@ -21,7 +21,7 @@ public class EmployeeDAO {
 	}
 
 	/* this function is used to create the employee database */
-	final public static void createEmployeeDatabase(Database database) {
+	final public static void createYetAnotherDatabase(Database database) {
 		try {
 			setStatement(database);
 			/* sets the backend for the creation of the employee database */
@@ -30,7 +30,7 @@ public class EmployeeDAO {
 			 * ^statement executes the query to create the actual database the final
 			 * database name is set to, YetAnotherDatabase
 			 */
-			// database.get_content().close();
+			database.get_content().close();
 			/*
 			 * once the database creation is done, we can close the jdbc connection with
 			 * database
@@ -55,11 +55,6 @@ public class EmployeeDAO {
 			/*
 			 * ^statement executes the query to create the table where employee information
 			 * will be stored the final table name is set to, employee
-			 */
-			// employeeDatabase.get_content().close();
-			/*
-			 * once the table creation is done, we can close the jdbc connection from the
-			 * database
 			 */
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,6 +96,16 @@ public class EmployeeDAO {
 			 * the sysout tells us the successfull execution of the try block without any
 			 * exceptions
 			 */System.out.println("Employee Information Inserted successfullly!");
+		}
+	}
+
+	final public static void deleteEmployee(Employee e, Database employeeDatabase) {
+		try {
+			PreparedStatement prep_state = setPreparedStatement(employeeDatabase, Query.DELETE_EMP);
+			/* sets the query for execution */
+			prep_state.setInt(1, e.getUid());
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }

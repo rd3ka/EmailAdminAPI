@@ -2,7 +2,7 @@ package com.yet.another.Database;
 
 public class Query {
 	/*
-	 * Here we write all the queries related to the Employee and the Password Table
+	 * Here we write all the queries related to the Employee Table
 	 */
 
 	final static public String CREATE_YetAnotherDatabase = "CREATE DATABASE YetAnotherDatabase";
@@ -23,9 +23,9 @@ public class Query {
 
 	final static public String READ_EMP_dob = "SELECT dob FROM employee" + "WHERE employee = ?";
 
-	final static public String READ_EMP_department = "SELECT department FROM employee" + "WHERE employee = ?";
+	final static public String READ_EMP_department = "SELECT department FROM employee" + "WHERE employee_id = ?";
 
-	final static public String READ_EMP_email = "SELECT email FROM employee" + "WHERE employee = ?";
+	final static public String READ_EMP_email = "SELECT email FROM employee" + "WHERE employee_id = ?";
 
 	/* Select Queries for reading key attributes, R - Read */
 	final static public String READ_EMP_ALL = "SELECT * FROM employee";
@@ -45,8 +45,31 @@ public class Query {
 	/* Update queries to the employee table, U - Update */
 	final static public String UPDATE_EMP_email = "UPDATE employee" + "SET email = ?" + "WHERE employeeid = ?";
 
-	final static public String CREATE_PASS_TABLE = "CREATE TABLE passowrd ( "
-			+ "employee_id INT PRIMARY KEY REFERENCES employee(employee_id) ON DELETE CASCADE, "
-			+ "encrypted_password VARCHAR(255) NOT NULL, " + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
-			+ "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP " + ")";
+	final static public String DELETE_EMP = "DELETE FROM employee WHERE employee_id = ?";
+
+	/* Here we write all the queries related to the Password Table */
+
+	/* we create the password table */
+	final static public String CREATE_PASSWORD_TABLE = "CREATE TABLE password ( " +
+			"employee_id INT PRIMARY KEY REFERENCES employee(employee_id) ON DELETE CASCADE, " +
+			"encrypted_password VARCHAR(255) NOT NULL, " +
+			"created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+			"updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" +
+			")";
+
+	/* creates a new entry in the password table */
+	final static public String INSERT_PASSWORD = "INSERT INTO password " +
+			"(employee_id, encrypted_password) " +
+			"VALUES (?, ?)";
+
+	/* updates the password for a particular employee_id */
+	final static public String UPDATE_PASSWORD = "UPDATE password " +
+			"SET encrypted_password = ? " +
+			"WHERE employee_id = ?";
+
+	/* returns the encrypted_password for a particular employee id */
+	final static public String READ_PASSWORD = "SELECT encrypted_password FROM password WHERE employee_id = ?";
+
+	/* deletes the password entry for a particular employee_id */
+	final static public String DELETE_PASSWORD = "DELETE FROM password WHERE employee_id = ?";
 }
