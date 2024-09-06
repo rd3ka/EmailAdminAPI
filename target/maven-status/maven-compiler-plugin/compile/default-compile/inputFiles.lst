@@ -1,8 +1,8 @@
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Main.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Password/PasswordDAO.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Password/Password.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Employee/EmployeeDAO.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Employee/Employee.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Password/EncryptionUtil.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Database/Database.java
-/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI/src/main/java/xyz/YA/Database/Query.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/App.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Database/Database.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Database/Query.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Employee/Employee.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Employee/EmployeeDAO.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Password/EncryptionUitl.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Password/Password.java
+/home/rdeka/Documents/Random-Programs/YetAnotherEmailAdminAPI_mvn/YetAnotherEmailAdminAPI/src/main/java/com/yet/another/Password/PasswordDAO.java
