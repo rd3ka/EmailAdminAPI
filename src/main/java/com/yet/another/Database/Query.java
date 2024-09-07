@@ -5,7 +5,9 @@ public class Query {
 	 * Here we write all the queries related to the Employee Table
 	 */
 
-	final static public String CREATE_YetAnotherDatabase = "CREATE DATABASE YetAnotherDatabase";
+	final static public String DEFAULT_DATABASE = "YetAnotherDatabase";
+
+	final static public String CREATE_DATABASE = "CREATE DATABASE " + DEFAULT_DATABASE;
 
 	final static public String CREATE_EMP_TABLE = "CREATE TABLE employee ( " + "employee_id INT PRIMARY KEY,"
 			+ "first_name VARCHAR(50) NOT NULL, " + "last_name VARCHAR(50) NOT NULL, " + "dob DATE, "

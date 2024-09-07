@@ -20,32 +20,6 @@ public class EmployeeDAO {
 		return employeeDatabase.get_content().prepareStatement(Query);
 	}
 
-	/* this function is used to create the employee database */
-	final public static void createYetAnotherDatabase(Database database) {
-		try {
-			setStatement(database);
-			/* sets the backend for the creation of the employee database */
-			statement.execute(Query.CREATE_YetAnotherDatabase);
-			/*
-			 * ^statement executes the query to create the actual database the final
-			 * database name is set to, YetAnotherDatabase
-			 */
-			database.get_content().close();
-			/*
-			 * once the database creation is done, we can close the jdbc connection with
-			 * database
-			 */
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			System.out.println("YetAnotherDatabase Got Created Succesfully!");
-			/*
-			 * the sysout tells us the successful execution of the try blcok without any
-			 * error
-			 */
-		}
-	}
-
 	/* this function is used to create the employee table */
 	final public static void createEmployeeTable(Database employeeDatabase) {
 		try {
@@ -87,7 +61,6 @@ public class EmployeeDAO {
 			/*
 			 * ^statement executes the query to insert employee data into the employee table
 			 */
-			// employeeDatabase.get_content().close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -2,6 +2,7 @@ package com.yet.another.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 /*
  * 
@@ -12,23 +13,20 @@ import java.sql.DriverManager;
  * changes in
  * table. The email is set to be unique, which means no too emails are supposed to be the same
  * 
- * +--------------+----------------------+------+-----+-------------------+-------------------------
- * ----+
- * | Field | Type | Null | Key | Default | Extra |
- * +--------------+----------------------+------+-----+-------------------+-------------------------
- * ----+
- * | employee_id | int(11) | NO | PRI | NULL | |
- * | first_name | varchar(50) | NO | | NULL | |
- * | last_name | varchar(50) | NO | | NULL | |
- * | dob | date | NO | | NULL | |
- * | role | varchar(50) | NO | | NULL | |
- * | department | varchar(100) | NO | | NULL | |
- * | email | varchar(100) | NO | UNI | NULL | |
- * | created_at | timestamp | NO | | CURRENT_TIMESTAMP | |
- * | updated_at | timestamp | NO | | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
- * +--------------+----------------------+------+-----+-------------------+-------------------------
- * ----+
- * ^ Employee Table
+ * +--------------+----------------------+------+-----+-------------------+-----------------------------+
+ * | Field        | Type         | Null  | Key     | Default | Extra      |
+ * +--------------+----------------------+------+-----+-------------------+-----------------------------+
+ * | employee_id  | int(11)      | NO    |     PRI | NULL    |            |
+ * | first_name   | varchar(50)  | NO    |         | NULL    |            |
+ * | last_name    | varchar(50)  | NO    |         | NULL    |            |
+ * | dob          | date         | NO    |         | NULL    |            |
+ * | role         | varchar(50)  | NO    |         | NULL    |            |
+ * | department   | varchar(100) | NO    |         | NULL    |            |
+ * | email        | varchar(100) | NO    |    UNI  | NULL    |            |
+ * | created_at   | timestamp    | NO    |         | CURRENT_TIMESTAMP  | |
+ * | updated_at   | timestamp    | NO    |         | CURRENT_TIMESTAMP    | on update CURRENT_TIMESTAMP |
+ * +--------------+----------------------+------+-----+-------------------+-----------------------------+
+ *                                              ^ Employee Table
  * 
  * In this table, the employee_id acts as the foreign key that references to the employee table,
  * real magic happens the @param encrypted_password which stores the password that is either set or
@@ -49,21 +47,10 @@ import java.sql.DriverManager;
  */
 
 public class Database {
-    private final String URL;
+
+    private String URL;
     private final String userName, password;
     private Connection connect;
-
-    /*
-     * here this constructor is used to pass a database string to get access to the
-     * database if we want to do
-     * any manipulation on the table level
-     */
-    public Database(String userName, String password, String database, int port_number) {
-        this.URL = new String("jdbc:mariadb://localhost:" + port_number + "/" + database);
-        this.userName = userName;
-        this.password = password;
-        this.initialize_db();
-    }
 
     /*
      * here this constructor is made to do manipulation on the database level i.e.
@@ -75,9 +62,17 @@ public class Database {
         this.userName = userName;
         this.password = password;
         this.initialize_db();
+        this.createDatabase();
+        /*
+         * since the database create is complete, we change the URL for jdbc to connect
+         * to that instance of the database
+         */
+        this.URL = new String("jdbc:mariadb://localhost:" + port_number + "/" + Query.DEFAULT_DATABASE + "/");
+        this.initialize_db();
+        /* we initialize the connect with the created database again */
     }
 
-    public String get_url() {
+    public final String get_url() {
         return this.URL;
     }
 
@@ -85,6 +80,16 @@ public class Database {
         try {
             this.connect = DriverManager.getConnection(this.URL, this.userName, this.password);
             System.out.println("Connection Successful!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private final void createDatabase() {
+        try {
+            Statement statement = this.connect.createStatement();
+            statement.execute(Query.CREATE_DATABASE);
+            System.out.println("Database successfully created!");
         } catch (Exception e) {
             e.printStackTrace();
         }
