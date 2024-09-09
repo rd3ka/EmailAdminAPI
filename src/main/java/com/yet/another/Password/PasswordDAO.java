@@ -1,6 +1,7 @@
 package com.yet.another.Password;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import com.yet.another.Database.*;
@@ -21,6 +22,14 @@ public class PasswordDAO {
 	/* this function creates the password table in the YetAnotherDatabase */
 	final public static void createPasswordTable(Database database) {
 		try {
+			/* first before creating the password table, we check if it already exists */
+			ResultSet resultSet = database.get_content().getMetaData().getTables(null, null, Query.DEFAULT_PASSWORD_TABLE,
+					new String[] { "TABLE" });
+			boolean tableExists = resultSet.next();
+			resultSet.close();
+
+			if (tableExists)
+				return;
 			setStatement(database);
 			/* sets query which we want to execute in the database */
 			statement.executeUpdate(Query.CREATE_PASSWORD_TABLE);

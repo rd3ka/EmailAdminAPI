@@ -1,28 +1,26 @@
 package com.yet.another.Employee;
 
-import java.sql.Statement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import com.yet.another.Database.*;
-
 /* TO-DO, this class needs well implementation currently missing */
 
 public class EmployeeDAO {
 	static private Statement statement;
 
-	private static final void setStatement(Database employeeDatabase) throws Exception {
-		statement = employeeDatabase.get_content().createStatement();
-	}
-
-	private static final PreparedStatement setPreparedStatement(Database employeeDatabase, String Query)
-			throws Exception {
-		return employeeDatabase.get_content().prepareStatement(Query);
-	}
-
 	/* this function is used to create the employee table */
 	final public static void createEmployeeTable(Database employeeDatabase) {
 		try {
+			/* first we check if the table already exists inside that database */
+			ResultSet resultSet = employeeDatabase.get_content().getMetaData().getTables(null, null,
+					Query.DEFAULT_EMPLOYEE_TABLE, new String[] { "TABLE" });
+			resultSet.close();
+			boolean tableExists = resultSet.next();
+			if (tableExists) /* if table already exists, we do not need to create it */
+				return;
 			setStatement(employeeDatabase);
 			/* sets query which we want to execute in the database */
 			statement.executeUpdate(Query.CREATE_EMP_TABLE);
@@ -80,5 +78,14 @@ public class EmployeeDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	private static final void setStatement(Database employeeDatabase) throws Exception {
+		statement = employeeDatabase.get_content().createStatement();
+	}
+
+	private static final PreparedStatement setPreparedStatement(Database employeeDatabase, String Query)
+			throws Exception {
+		return employeeDatabase.get_content().prepareStatement(Query);
 	}
 }

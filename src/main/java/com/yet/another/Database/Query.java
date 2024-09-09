@@ -5,7 +5,16 @@ public class Query {
 	 * Here we write all the queries related to the Employee Table
 	 */
 
+	final static public int DEFAULT_PORT = 3306;
+	final static public String DEFAULT_USER = "root";
 	final static public String DEFAULT_DATABASE = "YetAnotherDatabase";
+	final static public String DEFAULT_EMPLOYEE_TABLE = "employee";
+	final static public String DEFAULT_PASSWORD_TABLE = "password";
+
+	final static public String CHECK_DATABASE = "SELECT COUNT(*) " +
+			"FROM INFORMATION_SCHEMA.SCHEMATA " +
+			"WHERE SCHEMA_NAME = " +
+			DEFAULT_DATABASE;
 
 	final static public String CREATE_DATABASE = "CREATE DATABASE " + DEFAULT_DATABASE;
 

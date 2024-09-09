@@ -66,7 +66,8 @@ public class Employee {
 	}
 
 	public String getEmail() {
-		return this.lastName.toLowerCase() + "." + this.firstName.toLowerCase() + "@" + this.domain + ".com";
+		return this.lastName.toLowerCase() + "." + this.firstName.toLowerCase() + "@"
+				+ this.domain.replaceAll(" ", "").toLowerCase() + ".com";
 	}
 
 	public int getUid() {
