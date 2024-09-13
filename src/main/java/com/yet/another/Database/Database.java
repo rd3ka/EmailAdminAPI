@@ -49,67 +49,95 @@ public class Database {
     private String URL;
     private final String userName, password;
     private Connection connect;
+    public int DEFAULT_PORT = 3306; /* The default port is always set to 3306 */
 
     /*
      * here this constructor is made to do manipulation on the database level i.e.
      * if there is no appropriate db
      * made, it can be used to create it and made changes to the existing databases
      */
-    public Database(String userName, String password, int port_number) {
+    public Database(final String userName, final String password) {
         this.userName = userName;
         this.password = password;
-        this.URL = new String("jdbc:mariadb://localhost:" + port_number + "/");
-        this.initialize_db();
-        /* To-do implement better condition for making the if-case smaller */
-        if (databaseCheck()) {
-            this.URL = new String("jdbc:mariadb://localhost:" + port_number + "/" + Query.DEFAULT_DATABASE);
-            initialize_db();
-        } else {
+        this.URL = String.format("jdbc:mariadb://localhost:%d/", this.DEFAULT_PORT);
+        this.init();
+        /*
+         * if default database does not exists, then we first make the database before
+         * initializing the default database
+         */
+        if (!databaseCheck())
             createDatabase();
-            this.URL = new String("jdbc:mariadb://localhost:" + port_number + "/" + Query.DEFAULT_DATABASE);
-            this.initialize_db();
-        }
-        /* we initialize the connect with the created database again */
+        this.URL = String.format("jdbc:mariadb://localhost:%d/%s", this.DEFAULT_PORT, Query.DEFAULT_DATABASE);
+        this.init();
     }
 
+    /* returns the final URL; can be used of debug */
     public final String get_url() {
         return this.URL;
     }
 
-    private final void initialize_db() {
+    /*
+     * no params, init() func is used to connect the DriverManager with the Database
+     * using the URL that we made
+     */
+    public final void init() {
         try {
             this.connect = DriverManager.getConnection(this.URL, this.userName, this.password);
             System.out.println("Connection Successful!");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
+    /* this is a joke; but probably necessary */
+    public Connection connection() {
+        return this.connect;
+    }
+
+    /* setter func for port number */
+    final public void setDefaultPortNumber(final int portNumber) {
+        this.DEFAULT_PORT = portNumber;
+    }
+
+    /* getter userName (kept for debugging) */
+    final public String getDatabaseUsername() {
+        return this.userName;
+    }
+
+    /* getter password (kept for debugging) */
+    final public String getDatabasePassword() {
+        return this.password;
+    }
+
+    /*
+     * no params func that returns void -> creates a default database if there is no
+     * database present to work on
+     */
     private final void createDatabase() {
         try {
-            Statement statement = this.connect.createStatement();
+            final Statement statement = this.connect.createStatement();
             statement.execute(Query.CREATE_DATABASE);
             System.out.println("Database successfully created!");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
+    /*
+     * no params func that returns void -> checks if at all we need to make a
+     * database to begin with
+     */
     private final boolean databaseCheck() {
         try {
-            ResultSet resultSet = this.connect.getMetaData().getCatalogs();
+            final ResultSet resultSet = this.connect.getMetaData().getCatalogs();
             while (resultSet.next()) {
                 if (resultSet.getString(1).equals(Query.DEFAULT_DATABASE))
                     return true;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-
-    public Connection get_content() {
-        return this.connect;
-    }
-
 }

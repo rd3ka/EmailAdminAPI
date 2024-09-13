@@ -1,15 +1,24 @@
 package com.yet.another.Database;
 
+/* TO-DO: change from String Concatenation type to String.format() usage */
+
 public class Query {
 	/*
-	 * Here we write all the queries related to the Employee Table
+	 * ----------------- employee table -----------------
 	 */
 
-	final static public int DEFAULT_PORT = 3306;
-	final static public String DEFAULT_USER = "root";
-	final static public String DEFAULT_DATABASE = "YetAnotherDatabase";
-	final static public String DEFAULT_EMPLOYEE_TABLE = "employee";
-	final static public String DEFAULT_PASSWORD_TABLE = "password";
+	public static String DEFAULT_DATABASE = "YetAnotherDatabase"; /*
+																	 * The default databases name will always be
+																	 * YetAnotherDatabase
+																	 */
+	final static public String DEFAULT_EMPLOYEE_TABLE = "employee"; /*
+																	 * Default table to store employee information will
+																	 * always be employee
+																	 */
+	final static public String DEFAULT_PASSWORD_TABLE = "password"; /*
+																	 * Default table to store passwords will always be
+																	 * password
+																	 */
 
 	final static public String CHECK_DATABASE = "SELECT COUNT(*) " +
 			"FROM INFORMATION_SCHEMA.SCHEMATA " +
@@ -18,23 +27,28 @@ public class Query {
 
 	final static public String CREATE_DATABASE = "CREATE DATABASE " + DEFAULT_DATABASE;
 
-	final static public String CREATE_EMP_TABLE = "CREATE TABLE employee ( " + "employee_id INT PRIMARY KEY,"
+	final static public String CREATE_EMP_TABLE = "CREATE TABLE " + DEFAULT_EMPLOYEE_TABLE + " ( "
+			+ "employee_id INT PRIMARY KEY,"
 			+ "first_name VARCHAR(50) NOT NULL, " + "last_name VARCHAR(50) NOT NULL, " + "dob DATE, "
 			+ "role VARCHAR(50), " + "department VARCHAR(100), " + "email VARCHAR(100) UNIQUE NOT NULL, "
 			+ "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
 			+ "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP " + ")";
 
 	/* Create an entry to the employee table, C - Create */
-	final static public String INSERT_EMP = "INSERT INTO employee "
+	final static public String INSERT_EMP = "INSERT INTO " + DEFAULT_EMPLOYEE_TABLE
 			+ "(employee_id, first_name, last_name, dob, role, department, email) " + "VALUES "
 			+ "(?, ?, ?, ?, ?, ?, ? )";
-	final static public String READ_EMP_first_name = "SELECT first_name FROM employee" + "WHERE employee = ?";
+	final static public String READ_EMP_first_name = "SELECT first_name FROM " + DEFAULT_EMPLOYEE_TABLE
+			+ "WHERE employee = ?";
 
-	final static public String READ_EMP_last_name = "SELECT last_name FROM employee" + "WHERE employee = ?";
+	final static public String READ_EMP_last_name = "SELECT last_name FROM " + DEFAULT_EMPLOYEE_TABLE
+			+ " WHERE " + DEFAULT_EMPLOYEE_TABLE + " = ?";
 
-	final static public String READ_EMP_dob = "SELECT dob FROM employee" + "WHERE employee = ?";
+	final static public String READ_EMP_dob = "SELECT dob FROM " + DEFAULT_EMPLOYEE_TABLE + " WHERE "
+			+ DEFAULT_EMPLOYEE_TABLE + " = ?";
 
-	final static public String READ_EMP_department = "SELECT department FROM employee" + "WHERE employee_id = ?";
+	final static public String READ_EMP_department = "SELECT department FROM " + DEFAULT_EMPLOYEE_TABLE
+			+ " WHERE employee_id = ?";
 
 	final static public String READ_EMP_email = "SELECT email FROM employee" + "WHERE employee_id = ?";
 
@@ -54,11 +68,11 @@ public class Query {
 	final static public String UPDATE_EMP_department = "UPDATE employee" + "SET department = ?"
 			+ "WHERE employee_id = ?";
 	/* Update queries to the employee table, U - Update */
-	final static public String UPDATE_EMP_email = "UPDATE employee" + "SET email = ?" + "WHERE employeeid = ?";
+	final static public String UPDATE_EMP_email = "UPDATE employee" + "SET email = ?" + "WHERE employee_id = ?";
 
 	final static public String DELETE_EMP = "DELETE FROM employee WHERE employee_id = ?";
 
-	/* Here we write all the queries related to the Password Table */
+	/*----------------- Password Table -----------------*/
 
 	/* we create the password table */
 	final static public String CREATE_PASSWORD_TABLE = "CREATE TABLE password ( " +
@@ -83,4 +97,9 @@ public class Query {
 
 	/* deletes the password entry for a particular employee_id */
 	final static public String DELETE_PASSWORD = "DELETE FROM password WHERE employee_id = ?";
+
+	public static void changeDefaultDatabaseName(String database) {
+		DEFAULT_DATABASE = database;
+	}
+
 }
