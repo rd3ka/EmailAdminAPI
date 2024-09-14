@@ -28,9 +28,7 @@ public class PasswordDAO {
 
 			final boolean tableExists = resultSet.next(); /*
 															 * storing the result from the the resultSet to a boolean
-															 * type
-															 * variable
-															 * for future use/reference
+															 * type variable for future use/reference
 															 */
 			if (tableExists)
 				return;
@@ -220,7 +218,6 @@ public class PasswordDAO {
 		}
 	}
 
-	
 	private static final void setStatement(final Database passwordDatabase) throws Exception {
 		statement = passwordDatabase.connection().createStatement();
 	}
