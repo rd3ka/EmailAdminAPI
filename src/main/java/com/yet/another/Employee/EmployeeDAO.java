@@ -31,7 +31,7 @@ public class EmployeeDAO {
 				return;
 			setStatement(database);
 			/* sets query which we want to execute in the database */
-			statement.executeUpdate(Query.CREATE_EMP_TABLE);
+			statement.executeUpdate(Query.CREATE_EMPLOYEE_TABLE);
 			/*
 			 * ^statement executes the query to create the table where employee information
 			 * will be stored the final table name is set to, employee
@@ -72,7 +72,7 @@ public class EmployeeDAO {
 		try {
 			database.connection().setAutoCommit(false);
 			/* disabling the auto-commit to have manual control */
-			preparedStatement = setPreparedStatement(database, Query.INSERT_EMP);
+			preparedStatement = setPreparedStatement(database, Query.INSERT_EMPLOYEE);
 			/* sets the query for execution */
 			preparedStatement.setInt(1, e.getUid());
 			preparedStatement.setString(2, e.getFirstName());
@@ -138,20 +138,20 @@ public class EmployeeDAO {
 
 		} catch (final Exception exception) {
 			/*
-			 * in-case the transcation fails or faces any error, we try to rollback the
-			 * changes to the previous transcation
+			 * in-case the transaction fails or faces any error, we try to rollback the
+			 * changes to the previous transaction
 			 */
 			try {
 				if (database.connection() != null)
 					database.connection().rollback();
 			} catch (final SQLException rollbackException) {
-				System.err.println("Error rolling back to previous transcation " + rollbackException.getMessage());
+				System.err.println("Error rolling back to previous transaction " + rollbackException.getMessage());
 			} /*
 				 * in-case, in the worst case scenario, even rolling back does not do anything
 				 * good
 				 */
 		} finally {
-			/* finally, we do some cleaup work */
+			/* finally, we do some cleanup work */
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
