@@ -3,10 +3,20 @@ package com.yet.another.Employee;
 import java.time.LocalDate;
 
 public class Employee {
+
 	private String firstName, lastName;
 	private String role, department, domain;
 	private LocalDate dob;
-	private int uid;
+	private int UID;
+	String emailAddress;
+
+	public Employee() {
+		/*
+		 * This is an empty constructor, it will be used when we want to create a
+		 * transferable object
+		 * and the members of this object will be set using setters
+		 */
+	}
 
 	/*
 	 * Secondary constructor having:
@@ -26,8 +36,9 @@ public class Employee {
 		this.dob = dob;
 		this.role = " ";
 		this.department = " ";
-		this.uid = new String(this.firstName + this.lastName + this.dob).hashCode() & 0xfffffff;
 		this.domain = domain;
+		this.setUID();
+		this.setEmailAddress();
 	}
 
 	/*
@@ -51,7 +62,8 @@ public class Employee {
 		this(firstName, lastName, dob, domain);
 		this.role = role;
 		this.department = department;
-		this.uid = new String(this.firstName + this.lastName + this.dob).hashCode() & 0xffffff;
+		this.setUID();
+		this.setEmailAddress();
 	}
 
 	/* firstName getter */
@@ -104,15 +116,41 @@ public class Employee {
 		this.dob = dob;
 	}
 
-	/* uid getter */
-	public int getUid() {
-		return uid;
+	private void setUID() {
+		this.UID = EmployeeUtils.generateUniqueIdentityNumber(this.firstName, this.lastName);
 	}
 
-	/* email getter/generator */
-	public String getEmail() {
-		return String.format("%s.%s@%s.com", this.lastName.toLowerCase(),
-				this.firstName.toLowerCase(),
-				this.domain.replaceAll(" ", "").toLowerCase());
+	/* UID getter */
+	public int getUID() {
+		return UID;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getDomain() {
+		return this.domain;
+	}
+
+	public void setEmailAddress() {
+		this.emailAddress = EmployeeUtils.generateEmail(this.firstName, this.lastName, this.domain);
+	}
+
+	public String getEmailAddress() {
+		return this.emailAddress;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"%s %s in the role of %s in %s was born on %s who's employee ID is %d and email address is %s",
+				this.firstName,
+				this.lastName,
+				this.role,
+				this.department,
+				this.dob.toString(),
+				this.getUID(),
+				this.getEmailAddress());
 	}
 }

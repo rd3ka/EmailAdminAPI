@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import java.util.Base64;
 
-final class EncryptionUtil {
+final class EncryptionUtils {
 
     private final String ALGORITHM = "AES";
     private final int KEY_SIZE = 128;
@@ -16,7 +16,7 @@ final class EncryptionUtil {
     private String decrypted;
     private SecretKey secretKey;
 
-    public EncryptionUtil(String password) {
+    public EncryptionUtils(String password) {
         try {
             this.secretKey = generateAESKey();
             this.encrypted = encryptUtil(password, this.secretKey);

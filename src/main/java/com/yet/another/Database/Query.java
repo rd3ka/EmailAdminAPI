@@ -33,22 +33,12 @@ public class Query {
 			"INSERT INTO %s (employee_id, first_name, last_name, dob, role, department, email) VALUES (?, ?, ?, ?, ?, ?, ?)",
 			DEFAULT_EMPLOYEE_TABLE);
 
-	final static public String READ_EMPLOYEE_FIRST_NAME = String
-			.format("SELECT first_name FROM %s WHERE employee_id = ?", DEFAULT_EMPLOYEE_TABLE);
-
-	final static public String READ_EMPLOYEE_LAST_NAME = String.format("SELECT last_name FROM %s WHERE employee_id = ?",
-			DEFAULT_EMPLOYEE_TABLE);
-
-	final static public String READ_EMPLOYEE_DOB = String.format("SELECT dob FROM %s WHERE employee_id = ?",
-			DEFAULT_EMPLOYEE_TABLE);
-
-	final static public String READ_EMPLOYEE_DEPARTMENT = String
-			.format("SELECT department FROM %s WHERE employee_id = ?", DEFAULT_EMPLOYEE_TABLE);
-
-	final static public String READ_EMPLOYEE_EMAIL = String.format("SELECT email FROM employee WHERE employee_id = ?");
-
 	/* Select Queries for reading key attributes, R - Read */
 	final static public String READ_EMPLOYEE_ALL = String.format("SELECT * FROM %s", DEFAULT_EMPLOYEE_TABLE);
+
+	/* Select Query for reading a specific employee of employee_id */
+	final static public String READ_EMPLOYEE = String.format("SELECT * FROM %s WHERE employee_id = ?",
+			DEFAULT_EMPLOYEE_TABLE);
 
 	/* Update queries to the employee table, U - Update */
 	final static public String UPDATE_EMPLOYEE_FIRST_NAME = String.format(
@@ -80,7 +70,7 @@ public class Query {
 			"UPDATE %s SET email = ? WHERE employee_id =",
 			DEFAULT_EMPLOYEE_TABLE);
 
-	final static public String DELETE_EMP = String.format(
+	final static public String DELETE_EMPLOYEE = String.format(
 			"DELETE FROM %s WHERE employee_id = ?",
 			DEFAULT_EMPLOYEE_TABLE);
 
@@ -88,7 +78,7 @@ public class Query {
 
 	/* we create the password table */
 	final static public String CREATE_PASSWORD_TABLE = String.format(
-			"CREATE TABLE %s (employee_id INT PRIMARY KEY REFERENCES employee(employee_id) ON DELETE CASCADE), encrypted_password VARCHAR(255) NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+			"CREATE TABLE %s (employee_id INT PRIMARY KEY REFERENCES employee(employee_id) ON DELETE CASCADE, encrypted_password VARCHAR(255) NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)",
 			DEFAULT_PASSWORD_TABLE);
 	/* creates a new entry in the password table */
 	final static public String INSERT_PASSWORD = String
@@ -96,7 +86,7 @@ public class Query {
 
 	/* updates the password for a particular employee_id */
 	final static public String UPDATE_PASSWORD = String
-			.format("UPDATE %s SET encrypted_password = ?WHERE employee_id = ?", DEFAULT_PASSWORD_TABLE);
+			.format("UPDATE %s SET encrypted_password = ? WHERE employee_id = ?", DEFAULT_PASSWORD_TABLE);
 
 	/* returns the encrypted_password for a particular employee id */
 	final static public String READ_PASSWORD = String.format("SELECT encrypted_password FROM %s WHERE employee_id = ?",

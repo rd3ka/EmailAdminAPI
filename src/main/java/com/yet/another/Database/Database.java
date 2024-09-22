@@ -135,8 +135,24 @@ public class Database {
                 if (resultSet.getString(1).equals(Query.DEFAULT_DATABASE))
                     return true;
             }
-        } catch (final Exception e) {
-            e.printStackTrace();
+        } catch (final Exception exception) {
+            exception.printStackTrace();
+        }
+        return false;
+    }
+
+    /*
+     * This method is specifically made to handle and close the database connection
+     * once the transaction is complete
+     */
+    public final boolean handle(Database database) {
+        try {
+            if (database.connection() != null) {
+                database.connection().close();
+            }
+            return database.connection().isClosed();
+        } catch (final Exception exception) {
+            exception.printStackTrace();
         }
         return false;
     }

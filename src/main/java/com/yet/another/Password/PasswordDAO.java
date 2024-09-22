@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.yet.another.Database.Database;
-import com.yet.another.Database.Query;
+
+import com.yet.another.Database.*;
 import com.yet.another.Employee.Employee;
 
 public class PasswordDAO {
-	private static Statement statement;
 
 	/* this function creates the password table in YetAnotherDatabase */
 	final public static void createPasswordTable(final Database database) {
 		ResultSet resultSet = null;
+		Statement statement = null;
 		try {
 			database.connection().setAutoCommit(false);
 			/* setting auto commit off to get more manual control */
@@ -36,7 +36,7 @@ public class PasswordDAO {
 			 * checking if the table exists, if it does, then we do not need to create this
 			 * table once again
 			 */
-			setStatement(database);
+			statement = setStatement(database);
 			/* sets query which we want to execute in the database */
 			statement.executeUpdate(Query.CREATE_PASSWORD_TABLE);
 			/*
@@ -64,24 +64,21 @@ public class PasswordDAO {
 				if (statement != null)
 					statement.close();
 				/* closet the statement */
-				if (database.connection() != null)
-					database.connection().close();
-				/* close the database connection */
 			} catch (final SQLException e) {
 				System.out.println("Error closing resources: " + e.getMessage());
 			}
 		}
 	}
 
-	final public static void insertPassword(final Database database, final Employee e, final Password p) {
+	final public static void insertPassword(final Database database, final Employee employee, final Password password) {
 		PreparedStatement preparedStatement = null;
 		try {
 			database.connection().setAutoCommit(false);
 			/* disabling auto commit for more manual control */
 			preparedStatement = setPreparedStatement(database, Query.INSERT_PASSWORD);
 			/* sets the query for execution */
-			preparedStatement.setInt(1, e.getUid());
-			preparedStatement.setString(2, p.getEncryptedPassword());
+			preparedStatement.setInt(1, employee.getUID());
+			preparedStatement.setString(2, PasswordUtils.getEncryptedPassword(password.getPassword()));
 			/*
 			 * placing the value which comes from the employee class into the <?>
 			 * Placeholder in the query in order to have a complete valid query
@@ -115,24 +112,21 @@ public class PasswordDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 				/* we close the preparedStatement */
-				if (database.connection() != null)
-					database.connection().close();
-				/* we close the database connection */
 			} catch (final Exception exception) {
 				exception.printStackTrace();
 			}
 		}
 	}
 
-	final public static void updatePassword(final Database database, final Employee em, final Password p) {
+	final public static void updatePassword(final Database database, final Employee employee, final Password password) {
 		PreparedStatement preparedStatement = null;
 		try {
 			database.connection().setAutoCommit(false);
 			/* disabling auto commit for more manual control */
 			preparedStatement = setPreparedStatement(database, Query.UPDATE_PASSWORD);
 			/* sets the query for execution */
-			preparedStatement.setString(1, p.getEncryptedPassword());
-			preparedStatement.setInt(2, em.getUid());
+			preparedStatement.setString(1, PasswordUtils.getEncryptedPassword(password.getPassword()));
+			preparedStatement.setInt(2, employee.getUID());
 			/*
 			 * placing the value which comes from the employee class into the <?>
 			 * Placeholder in the query in order to have a complete valid query
@@ -144,7 +138,7 @@ public class PasswordDAO {
 			 */
 			database.connection().commit();
 			/* once the query has been processed we can commit these changes */
-		} catch (final Exception e) {
+		} catch (final Exception exception) {
 			/*
 			 * in-case the transaction fails or faces any error, we try to rollback the
 			 * changes to the previous transaction
@@ -162,23 +156,24 @@ public class PasswordDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 				/* we close the preparedStatement */
-				if (database.connection() != null)
-					database.connection().close();
-				/* we close the database connection */
 			} catch (final Exception exception) {
 				exception.printStackTrace();
 			}
 		}
 	}
 
-	final public static void deletePassword(final Database database, final Employee em) {
+	final public static void readPassword(final Database database, int employeeUID) {
+
+	}
+
+	final public static void deletePassword(final Database database, final Employee employee) {
 		PreparedStatement preparedStatement = null;
 		try {
 			database.connection().setAutoCommit(false);
 			/* disabling the auto-commit to have manual control */
 			preparedStatement = setPreparedStatement(database, Query.DELETE_PASSWORD);
 			/* sets the query for execution */
-			preparedStatement.setInt(1, em.getUid());
+			preparedStatement.setInt(1, employee.getUID());
 			/*
 			 * placing the value which comes from the employee class into the <?>
 			 * Placeholder in the query in order to have a complete valid query
@@ -209,17 +204,14 @@ public class PasswordDAO {
 				if (preparedStatement != null)
 					preparedStatement.close();
 				/* close the resultSet */
-				if (database.connection() != null)
-					database.connection().close();
-				/* close the database connection */
 			} catch (final Exception exception) {
 				exception.printStackTrace();
 			}
 		}
 	}
 
-	private static final void setStatement(final Database passwordDatabase) throws Exception {
-		statement = passwordDatabase.connection().createStatement();
+	private static final Statement setStatement(final Database passwordDatabase) throws Exception {
+		return passwordDatabase.connection().createStatement();
 	}
 
 	private static final PreparedStatement setPreparedStatement(final Database passwordDatabase, final String Query)
