@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import com.yet.another.Database.*;
 import com.yet.another.Employee.Employee;
 
@@ -27,9 +26,9 @@ public class PasswordDAO {
 			/* first before creating the password table, we check if it already exists */
 
 			final boolean tableExists = resultSet.next(); /*
-															 * storing the result from the the resultSet to a boolean
-															 * type variable for future use/reference
-															 */
+																										 * storing the result from the the resultSet to a boolean
+																										 * type variable for future use/reference
+																										 */
 			if (tableExists)
 				return;
 			/*
@@ -162,8 +161,57 @@ public class PasswordDAO {
 		}
 	}
 
-	final public static void readPassword(final Database database, int employeeUID) {
-
+	final public static Password readPassword(final Database database, int employeeUID) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		/* password object to get the decrypted password */
+		Password password = new Password();
+		try {
+			database.connection().setAutoCommit(false);
+			/* disabling the auto-commit to have manual control */
+			preparedStatement = setPreparedStatement(database, Query.READ_PASSWORD);
+			/* sets the query for execution */
+			preparedStatement.setInt(1, employeeUID);
+			/*
+			 * placing the value which comes from the employee class into the <?>
+			 * Placeholder in the query in order to have a complete valid query
+			 **/
+			resultSet = preparedStatement.executeQuery();
+			/*
+			 * ^statement executes the query to read the password data associated with the
+			 * employee_id from the password table
+			 */
+			database.connection().commit();
+			/* meri ex commitment nehi deh paya, SQL se kya hi umeed hai */
+			password.setPassword(resultSet.getString(1));
+			/*
+			 * potentially, one of the bigest jokes of the centuary, but I am keeping this
+			 * as it is
+			 */
+			password.setLength(password.getPassword().length());
+		} catch (final Exception exception) {
+			/*
+			 * in-case the transaction fails or faces any error, we try to
+			 * rollback the changes to the previous transaction
+			 */
+			try {
+				if (database.connection() != null)
+					database.connection().rollback();
+			} catch (final SQLException rollbackException) {
+				System.err.println("Error rolling back to previous transaction " + rollbackException.getMessage());
+				/* in-case in the worst-case scenario, rolling back too does not work */
+			}
+		} finally {
+			/* finally, we do some clean-up work */
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+				/* close the resultSet */
+			} catch (final Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+		return password;
 	}
 
 	final public static void deletePassword(final Database database, final Employee employee) {

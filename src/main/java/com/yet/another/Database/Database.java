@@ -90,7 +90,10 @@ public class Database {
         }
     }
 
-    /* this is a joke; but probably necessary */
+    /*
+     * this is a joke; but probably necessary, sometimes the best things in life is
+     * just another tragedy, and there you'll always find comedy
+     */
     public Connection connection() {
         return this.connect;
     }

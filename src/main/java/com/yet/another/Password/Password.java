@@ -18,19 +18,12 @@ public class Password {
 		this.setPassword();
 	}
 
-	public Password(int MIN_LENGTH, int MAX_LENGTH) {
-		PasswordUtils.MAX_LENGTH = MAX_LENGTH;
-		PasswordUtils.MIN_LENGTH = MIN_LENGTH;
-		this.setLength();
-		this.setPassword();
-	}
-
 	public void setLength(int length) {
 		if (PasswordUtils.MIN_LENGTH <= length && length <= PasswordUtils.MAX_LENGTH)
 			this.passwordLength = length;
 	}
 
-	public void setLength() {
+	private void setLength() {
 		this.passwordLength = new SecureRandom().nextInt(PasswordUtils.MIN_LENGTH, PasswordUtils.MAX_LENGTH);
 	}
 
@@ -42,7 +35,7 @@ public class Password {
 		this.password = password;
 	}
 
-	public void setPassword() {
+	private void setPassword() {
 		this.password = PasswordUtils.generatePassword(this.passwordLength);
 	}
 

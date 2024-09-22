@@ -117,7 +117,7 @@ public class Employee {
 	}
 
 	private void setUID() {
-		this.UID = EmployeeUtils.generateUniqueIdentityNumber(this.firstName, this.lastName);
+		this.UID = EmployeeUtils.generateUniqueIdentityNumber(this.firstName, this.lastName, this.dob);
 	}
 
 	/* UID getter */

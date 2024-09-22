@@ -7,20 +7,18 @@ public class Query {
 	 * ----------------- employee table -----------------
 	 */
 
-	public static String DEFAULT_DATABASE = "YetAnotherDatabase"; /*
-																	 * The default databases name
-																	 * will always be
-																	 * YetAnotherDatabase
-																	 */
-
-	final static public String DEFAULT_EMPLOYEE_TABLE = "employee"; /*
-																	 * Default table to store employee information will
-																	 * always be employee
-																	 */
-	final static public String DEFAULT_PASSWORD_TABLE = "password"; /*
-																	 * Default table to store passwords will always be
-																	 * password
-																	 */
+	/*
+	 * The default databases name will always be YetAnotherDatabase
+	 */
+	public static String DEFAULT_DATABASE = "YetAnotherDatabase";
+	/*
+	 * Default table to store employee information will always be employee
+	 */
+	final static public String DEFAULT_EMPLOYEE_TABLE = "employee";
+	/*
+	 * Default table to store passwords will always be password
+	 */
+	final static public String DEFAULT_PASSWORD_TABLE = "password";
 
 	final static public String CREATE_DATABASE = String.format("CREATE DATABASE %s ;", DEFAULT_DATABASE);
 
