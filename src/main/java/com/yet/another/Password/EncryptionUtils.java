@@ -1,59 +1,55 @@
 package com.yet.another.Password;
 
+import java.util.Base64;
 import javax.crypto.Cipher;
-import java.security.SecureRandom;
-import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import java.util.Base64;
+public final class EncryptionUtils {
 
-final class EncryptionUtils {
+    private static final String ALGORITHM = "AES";
+    private static final String TRANSFORMATION = "AES/CBC/PKCS5PADDING";
+    private static final String SECRET_KEY = "MySecretKey12345"; // 16 bytes for AES-128
+    private static final String INIT_VECTOR = "RandomInitVector"; // 16 bytes for AES/CBC mode
+    private static final String CHARSET = "UTF-8";
 
-    private final String ALGORITHM = "AES";
-    private final int KEY_SIZE = 128;
-
-    private String encrypted;
-    private String decrypted;
-    private SecretKey secretKey;
-
-    public EncryptionUtils(String password) {
+    private static String encryptUtility(String password) {
         try {
-            this.secretKey = generateAESKey();
-            this.encrypted = encryptUtil(password, this.secretKey);
-            this.decrypted = decryptUtil(this.encrypted, this.secretKey);
-        } catch (Exception e) {
-            e.printStackTrace();
+            IvParameterSpec iv = new IvParameterSpec(INIT_VECTOR.getBytes(CHARSET));
+            SecretKeySpec keySpec = new SecretKeySpec(SECRET_KEY.getBytes(CHARSET), ALGORITHM);
+
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
+
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes(CHARSET));
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
+        return null;
     }
 
-    private final SecretKey generateAESKey() throws Exception {
-        SecureRandom secureRandom = SecureRandom.getInstanceStrong();
-        byte[] keyBytes = new byte[this.KEY_SIZE / 8];
-        secureRandom.nextBytes(keyBytes);
-        return new SecretKeySpec(keyBytes, this.ALGORITHM);
+    private static String decryptUtility(String encryptedPassword) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(INIT_VECTOR.getBytes(CHARSET));
+            SecretKeySpec keySpec = new SecretKeySpec(SECRET_KEY.getBytes(CHARSET), ALGORITHM);
+
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
+
+            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedPassword));
+            return new String(decryptedBytes, CHARSET);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
-    /* helper method where the encryption takes place */
-    private final String encryptUtil(String value, SecretKey secretKey) throws Exception {
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, SecureRandom.getInstanceStrong());
-        byte[] encryptedBytes = cipher.doFinal(value.getBytes());
-        return Base64.getEncoder().encodeToString(encryptedBytes);
+    public String getEncryptedPassword(String password) {
+        return encryptUtility(password);
     }
 
-    /* help method where decryption takes place */
-    private final String decryptUtil(String value, SecretKey secretKey) throws Exception {
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, SecureRandom.getInstanceStrong());
-        byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(value));
-        return new String(decryptedBytes);
-    }
-
-    protected final String getEncryptedPassword() {
-        return this.encrypted;
-    }
-
-    protected final String getDecryptedPassword() {
-        return this.decrypted;
+    public String getDecryptedPassword(String password) {
+        return decryptUtility(password);
     }
 }

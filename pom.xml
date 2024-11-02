@@ -9,14 +9,16 @@
 	<name>YetAnotherEmailAdminAPI</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>17</maven.compiler.release> 
+		<maven.compiler.source>17</maven.compiler.source> 
+		<maven.compiler.target>17</maven.compiler.target> 
 	</properties>
 	<dependencies>
 	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
-			<version>3.4.1</version>
+			<version>3.3.3</version>
 		</dependency>
 	</dependencies>
 	<build>	
@@ -33,6 +35,15 @@
 						</manifest>
 					</archive>
 				</configuration>
+		</plugin>
+	<!-- exec-maven plugin -->
+		<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>exec-maven-plugin</artifactId>
+		<version>1.6.0</version>
+		<configuration>
+			<mainClass>com.yet.another.App</mainClass>
+		</configuration>
 		</plugin>
 	</plugins>
 	</build>

@@ -10,10 +10,10 @@ public class PasswordUtils {
     protected static char selector(int caseMatch) {
         char character = '\0'; //initial value of the character
         switch (caseMatch) {
-            case 1 -> character = (char) (secureRandom.nextInt('A', 'Z'));
-            case 2 -> character = (char) (secureRandom.nextInt('a', 'z'));
-            case 3 -> character = (char) (secureRandom.nextInt('0', '9'));
-            case 4 -> {
+        case 1 -> character = (char) (secureRandom.nextInt('A', 'Z'));
+        case 2 -> character = (char) (secureRandom.nextInt('a', 'z'));
+        case 3 -> character = (char) (secureRandom.nextInt('0', '9'));
+        case 4 -> {
                 char[] specialCharacterList = { '!', '#', '&', '$', '@', '*', '{', '}', '(', ')', '|' };
                 character = specialCharacterList[secureRandom.nextInt(0, specialCharacterList.length)];
             }
@@ -35,16 +35,7 @@ public class PasswordUtils {
          */
         for (int i = 1; i < length; ++i)
             password[i] = selector(secureRandom.nextInt(1, 5));
-        
+
         return new String(password);
     }
-
-    public static final String getEncryptedPassword(String password) {
-        return new EncryptionUtils(password).getEncryptedPassword();
-    }
-
-    public static final String getDecryptedPassword(String password) {
-        return new EncryptionUtils(password).getDecryptedPassword();
-    }
-
 }

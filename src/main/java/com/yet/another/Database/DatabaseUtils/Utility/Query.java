@@ -1,16 +1,9 @@
-package com.yet.another.Database;
+package com.yet.another.Database.DatabaseUtils.Utility;
 
 /* TO-DO: change from String Concatenation type to String.format() usage */
 
-public class Query {
-	/*
-	 * ----------------- employee table -----------------
-	 */
+public class Query extends Defaults {
 
-	/*
-	 * The default databases name will always be YetAnotherDatabase
-	 */
-	public static String DEFAULT_DATABASE = "YetAnotherDatabase";
 	/*
 	 * Default table to store employee information will always be employee
 	 */
@@ -23,12 +16,12 @@ public class Query {
 	final static public String CREATE_DATABASE = String.format("CREATE DATABASE %s ;", DEFAULT_DATABASE);
 
 	final static public String CREATE_EMPLOYEE_TABLE = String.format(
-			"CREATE TABLE %s (employee_id INT PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, dob DATE, role VARCHAR(50), department VARCHAR(100), email VARCHAR(100) UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)",
+			"CREATE TABLE %s (employee_id INT PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, dob DATE, role VARCHAR(50), department VARCHAR(100), org VARCHAR(25) NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)",
 			DEFAULT_EMPLOYEE_TABLE);
 
 	/* Create an entry to the employee table, C - Create */
 	final static public String INSERT_EMPLOYEE = String.format(
-			"INSERT INTO %s (employee_id, first_name, last_name, dob, role, department, email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+			"INSERT INTO %s (employee_id, first_name, last_name, dob, role, department, org) VALUES (?, ?, ?, ?, ?, ?, ?)",
 			DEFAULT_EMPLOYEE_TABLE);
 
 	/* Select Queries for reading key attributes, R - Read */
@@ -65,14 +58,12 @@ public class Query {
 
 	/* Update queries to the employee table, U - Update */
 	final static public String UPDATE_EMPLOYEE_EMAIL = String.format(
-			"UPDATE %s SET email = ? WHERE employee_id =",
+			"UPDATE %s SET org = ? WHERE employee_id =",
 			DEFAULT_EMPLOYEE_TABLE);
 
 	final static public String DELETE_EMPLOYEE = String.format(
 			"DELETE FROM %s WHERE employee_id = ?",
 			DEFAULT_EMPLOYEE_TABLE);
-
-	/*----------------- Password Table -----------------*/
 
 	/* we create the password table */
 	final static public String CREATE_PASSWORD_TABLE = String.format(
@@ -94,8 +85,4 @@ public class Query {
 	final static public String DELETE_PASSWORD = String.format(
 			"DELETE FROM %s WHERE employee_id = ?",
 			DEFAULT_PASSWORD_TABLE);
-
-	public static void changeDefaultDatabaseName(String database) {
-		DEFAULT_DATABASE = database;
-	}
 }
